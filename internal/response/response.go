@@ -6,7 +6,7 @@ import (
 )
 
 type Response struct {
-	Error   error
+	Error   string
 	Message string
 }
 

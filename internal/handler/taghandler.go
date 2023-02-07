@@ -7,7 +7,7 @@ import (
 
 	errmessage "github.com/AnishriM/expenses-diary/internal/common"
 	"github.com/AnishriM/expenses-diary/internal/response"
-	"github.com/AnishriM/expenses-diary/internal/services/tag"
+	"github.com/AnishriM/expenses-diary/internal/service"
 	"github.com/gorilla/mux"
 )
 
@@ -23,7 +23,7 @@ func (h *Handler) GetTagByID(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	tag, err := tag.GetTagByID(h.DB, uint(uid))
+	tag, err := service.GetTagByID(h.DB, uint(uid))
 	if err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.GET_TAG_ERROR,
@@ -35,7 +35,7 @@ func (h *Handler) GetTagByID(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) GetAllTags(w http.ResponseWriter, r *http.Request) {
-	tags, err := tag.GetAllTags(h.DB)
+	tags, err := service.GetAllTags(h.DB)
 	if err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.GET_TAG_ERROR,
@@ -60,7 +60,7 @@ func (h *Handler) UpdateTag(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var newTag tag.Tag
+	var newTag service.Tag
 	if err := json.NewDecoder(r.Body).Decode(&newTag); err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.JSON_DECODE_ERROR,
@@ -69,7 +69,7 @@ func (h *Handler) UpdateTag(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tag, err := tag.UpdateTag(uint(uid), newTag.Name, h.DB)
+	tag, err := service.UpdateTag(uint(uid), newTag.Name, h.DB)
 	if err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.UPDATE_TAG_ERROR,
@@ -94,7 +94,7 @@ func (h *Handler) DeleteTag(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tag, err := tag.DeleteTag(uint(uid), h.DB)
+	tag, err := service.DeleteTag(uint(uid), h.DB)
 	if err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.DELETE_TAG_ERROR,
@@ -107,7 +107,7 @@ func (h *Handler) DeleteTag(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) CreateTag(w http.ResponseWriter, r *http.Request) {
 	var err error
-	var newtag tag.Tag
+	var newtag service.Tag
 
 	if err := json.NewDecoder(r.Body).Decode(&newtag); err != nil {
 		response.SendErrorResponse(w, response.Response{
@@ -116,7 +116,7 @@ func (h *Handler) CreateTag(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	newtag, err = tag.CreateTag(newtag.Name, h.DB)
+	newtag, err = service.CreateTag(newtag.Name, h.DB)
 	if err != nil {
 		response.SendErrorResponse(w, response.Response{
 			Message: errmessage.CREATE_TAG_ERROR,

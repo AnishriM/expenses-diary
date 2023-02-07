@@ -1,4 +1,4 @@
-package tag
+package service
 
 import (
 	"fmt"
@@ -39,7 +39,8 @@ func NewDatabase() (*gorm.DB, error) {
 
 func MigrateDB(db *gorm.DB) error {
 	var tag Tag
-	if result := db.AutoMigrate(&tag); result.Error != nil {
+	var expense Expense
+	if result := db.AutoMigrate(&tag, &expense); result.Error != nil {
 		return result.Error
 	}
 	return nil

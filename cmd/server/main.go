@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/AnishriM/expenses-diary/internal/handler"
-	database "github.com/AnishriM/expenses-diary/internal/services/tag"
+	"github.com/AnishriM/expenses-diary/internal/service"
 )
 
 type Application struct {
@@ -12,18 +12,18 @@ type Application struct {
 }
 
 func (application *Application) Run() error {
-	db, err := database.NewDatabase()
+	db, err := service.NewDatabase()
 	if err != nil {
 		println("Error occurred while setting up database.")
 		return err
 	}
 
-	if err = database.MigrateDB(db); err != nil {
+	if err = service.MigrateDB(db); err != nil {
 		return err
 	}
 
 	println("Setting up application")
-	application.Handler = handler.NewHandler(database.NewService(db))
+	application.Handler = handler.NewHandler(service.NewService(db))
 	application.Handler.SetupRoutes()
 	println("Listen and serve")
 	http.ListenAndServe(":8080", application.Handler.Router)

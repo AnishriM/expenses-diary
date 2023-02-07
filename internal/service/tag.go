@@ -1,4 +1,4 @@
-package tag
+package service
 
 import (
 	"github.com/jinzhu/gorm"

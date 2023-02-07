@@ -1,18 +1,18 @@
-**go-rest-api**
+**📒 Expenses Diary 📒**
 ----
 [Note: This repo is under progress]
 
 
 The aim of this project is to create application which will be used to keep note of day to day expenses.
 Planned Features:
-1. Get all supported tags for expenses. (e.g grocery, medical etc.)
-2. Add expense with tag for specific day.
+1. Get all supported tags for expenses. (e.g grocery 🛒, medical 💊 etc.)
+2. Add expense with tag for specific day 📆.
 3. Get all expenses.
 4. Get expense by filters. (get expenses by tags, or in between days)
 5. CRUD on tags and expenses.
 
 #### packages used:
-1. For database: postgres
+1. For database: postgres 
 2. For database connection & handling: gorm
 3. For logging: logrus
 4. For api development: gorilla

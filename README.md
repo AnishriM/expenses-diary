@@ -40,7 +40,6 @@ export DB_TABLE=postgres
 go run cmd/server/main.go
 ```
 
-
 ![Number of Closed PRs](https://img.shields.io/github/issues-pr-closed-raw/AnishriM/expenses-diary)
 ![Repo Size](https://img.shields.io/github/repo-size/AnishriM/expenses-diary)
 ----
